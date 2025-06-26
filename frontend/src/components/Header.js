@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Rocket, Home, Camera, Globe, Satellite, Eye, MessageCircle } from 'lucide-react';
+import { Rocket, Home, Camera, Globe, Satellite, Eye, MessageCircle, Star } from 'lucide-react';
 import './Header.css';
 
 const Header = () => {
@@ -13,6 +13,7 @@ const Header = () => {
     { path: '/earth-imagery', label: 'Earth', icon: Globe },
     { path: '/neo', label: 'NEO', icon: Satellite },
     { path: '/epic', label: 'EPIC', icon: Eye },
+    { path: '/donki', label: 'DONKI', icon: Star },
     { path: '/assistant', label: 'Assistant', icon: MessageCircle }
   ];
 

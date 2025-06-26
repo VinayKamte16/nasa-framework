@@ -8,6 +8,7 @@ import EarthImagery from './components/EarthImagery';
 import NEO from './components/NEO';
 import EPIC from './components/EPIC';
 import ChatAssistant from './components/ChatAssistant';
+import DONKI from './components/DONKI';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/earth-imagery" element={<EarthImagery />} />
             <Route path="/neo" element={<NEO />} />
             <Route path="/epic" element={<EPIC />} />
+            <Route path="/donki" element={<DONKI />} />
             <Route path="/assistant" element={<ChatAssistant />} />
           </Routes>
         </main>
