@@ -99,11 +99,11 @@ main {
   border-radius: 24px;
   background: rgba(30, 32, 44, 0.85);
   box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
-  padding: 32px 48px 48px 48px;
+  padding: 32px 32px 48px 32px;
   margin: 0 auto;
   max-width: 98vw;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   backdrop-filter: blur(8px);
   box-sizing: border-box;
 }
@@ -115,6 +115,7 @@ main {
   transition: box-shadow 0.3s;
   padding: 0 8px;
   box-sizing: border-box;
+  max-width: 100%;
 }
 
 .swiper-slide-active {
@@ -137,11 +138,11 @@ main {
 }
 
 .swiper-button-prev {
-  left: -28px;
+  left: 8px;
 }
 
 .swiper-button-next {
-  right: -28px;
+  right: 8px;
 }
 
 .swiper-button-next:hover,
@@ -246,14 +247,14 @@ main {
 
 @media (max-width: 900px) {
   .swiper {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
   .swiper-button-prev {
-    left: 4px;
+    left: 2px;
   }
   .swiper-button-next {
-    right: 4px;
+    right: 2px;
   }
 }
 
@@ -284,4 +285,9 @@ body::after {
 select, select option, select optgroup, option {
   background-color: #23243a !important;
   color: #fff !important;
+}
+
+.feature-card {
+  max-width: 100%;
+  min-width: 0;
 } 
