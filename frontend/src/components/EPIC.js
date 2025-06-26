@@ -114,6 +114,9 @@ const EPIC = () => {
                         e.target.nextSibling.style.display = 'block';
                       }}
                     />
+                    <div style={{textAlign: 'center', marginTop: '8px', fontSize: '0.95em', color: '#aaa'}}>
+                      <span>Tip: On mobile, long-press the image to save it.</span>
+                    </div>
                     <div className="image-error" style={{ display: 'none' }}>
                       <Eye size={48} />
                       <p>Image not available</p>
@@ -150,10 +153,19 @@ const EPIC = () => {
                     <button 
                       onClick={() => handleDownload(image, selectedDate)} 
                       className="btn"
+                      style={{marginRight: '8px'}}
                     >
                       <Download size={16} />
                       Download Image
                     </button>
+                    <a 
+                      href={getImageUrl(image, selectedDate)} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="btn"
+                    >
+                      View/Download Image
+                    </a>
                   </div>
                 </div>
               </SwiperSlide>
