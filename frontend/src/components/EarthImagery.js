@@ -97,21 +97,41 @@ const EarthImagery = () => {
     fetchEonet();
   }, []);
 
-  // Group events by region (use first category title as region proxy)
-  const regionCounts = {};
+  // Helper: Map lat/lon to continent
+  function getContinent(lat, lon) {
+    if (lat === undefined || lon === undefined) return 'Other';
+    if (lat >= -35 && lat <= 37 && lon >= -17 && lon <= 51) return 'Africa';
+    if (lat >= 35 && lat <= 71 && lon >= -10 && lon <= 60) return 'Europe';
+    if (lat >= 7 && lat <= 83 && lon >= -168 && lon <= -52) return 'North America';
+    if (lat >= -56 && lat <= 13 && lon >= -81 && lon <= -34) return 'South America';
+    if (lat >= -50 && lat <= -10 && lon >= 110 && lon <= 180) return 'Australia';
+    if (lat <= -60) return 'Antarctica';
+    if (lat >= 1 && lat <= 77 && lon >= 26 && lon <= 180) return 'Asia';
+    return 'Other';
+  }
+
+  // Group events by continent
+  const continentCounts = {};
   eonetData.forEach(event => {
-    const region = event.categories && event.categories[0] ? event.categories[0].title : 'Other';
-    regionCounts[region] = (regionCounts[region] || 0) + 1;
+    // Use first geometry point
+    const geom = event.geometry && event.geometry[0];
+    if (geom && geom.coordinates && geom.coordinates.length === 2) {
+      const [lon, lat] = geom.coordinates;
+      const continent = getContinent(lat, lon);
+      continentCounts[continent] = (continentCounts[continent] || 0) + 1;
+    } else {
+      continentCounts['Other'] = (continentCounts['Other'] || 0) + 1;
+    }
   });
-  const regionLabels = Object.keys(regionCounts);
-  const regionValues = Object.values(regionCounts);
+  const continentLabels = Object.keys(continentCounts);
+  const continentValues = Object.values(continentCounts);
 
   const eonetChartData = {
-    labels: regionLabels,
+    labels: continentLabels,
     datasets: [
       {
         label: 'Active Natural Events',
-        data: regionValues,
+        data: continentValues,
         fill: false,
         borderColor: '#51cf66',
         backgroundColor: 'rgba(81, 207, 102, 0.2)',
@@ -123,11 +143,11 @@ const EarthImagery = () => {
     responsive: true,
     plugins: {
       legend: { display: false },
-      title: { display: true, text: 'Active Natural Events per Region (EONET)' },
+      title: { display: true, text: 'Active Natural Events per Continent (EONET)' },
     },
     scales: {
       x: {
-        title: { display: true, text: 'Region', font: { size: 16, weight: 'bold' } },
+        title: { display: true, text: 'Continent', font: { size: 16, weight: 'bold' } },
       },
       y: {
         title: { display: true, text: 'Event Count', font: { size: 16, weight: 'bold' } },
