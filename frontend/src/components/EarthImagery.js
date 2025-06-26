@@ -145,21 +145,6 @@ const EarthImagery = () => {
     }
   });
 
-  // Custom X-axis tick with info icon
-  const xAxisTicks = continentLabels.map(label => (
-    <span key={label} style={{ display: 'inline-flex', alignItems: 'center', marginRight: 8 }}>
-      {label}
-      <Info size={16} style={{ marginLeft: 4, cursor: 'pointer', color: '#51cf66' }}
-        title={`Show events for ${label}`}
-        onClick={() => {
-          setModalContinent(label);
-          setModalEvents(continentEvents[label] || []);
-          setModalOpen(true);
-        }}
-      />
-    </span>
-  ));
-
   const eonetChartData = {
     labels: continentLabels,
     datasets: [
@@ -183,9 +168,6 @@ const EarthImagery = () => {
       x: {
         title: { display: true, text: 'Continent', font: { size: 16, weight: 'bold' } },
         ticks: {
-          callback: function(value, index) {
-            return xAxisTicks[index];
-          },
           color: '#fff',
           font: { size: 14 },
         },
@@ -375,7 +357,24 @@ const EarthImagery = () => {
         ) : eonetError ? (
           <div className="error">{eonetError}</div>
         ) : (
-          <Line data={eonetChartData} options={eonetChartOptions} />
+          <>
+            <Line data={eonetChartData} options={eonetChartOptions} />
+            {/* Info icons row below chart */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 18, margin: '18px 0 0 0', flexWrap: 'wrap' }}>
+              {continentLabels.map(label => (
+                <span key={label} style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer', color: '#51cf66', fontWeight: 600, fontSize: 15 }}
+                  title={`Show events for ${label}`}
+                  onClick={() => {
+                    setModalContinent(label);
+                    setModalEvents(continentEvents[label] || []);
+                    setModalOpen(true);
+                  }}
+                >
+                  <Info size={16} style={{ marginRight: 4 }} />{label}
+                </span>
+              ))}
+            </div>
+          </>
         )}
       </div>
 
