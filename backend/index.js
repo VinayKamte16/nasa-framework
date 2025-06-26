@@ -108,12 +108,14 @@ app.get('/api/neo', async (req, res) => {
 app.get('/api/epic', async (req, res) => {
   try {
     const { date } = req.query;
+    let url = `${NASA_BASE_URL}/EPIC/api/natural`;
+    if (date) {
+      url += `/date/${date}`;
+    }
     const params = new URLSearchParams({
-      api_key: NASA_API_KEY,
-      ...(date && { date })
+      api_key: NASA_API_KEY
     });
-
-    const response = await axios.get(`${NASA_BASE_URL}/EPIC/api/natural?${params}`);
+    const response = await axios.get(`${url}?${params}`);
     res.json(response.data);
   } catch (error) {
     console.error('EPIC API Error:', error.message);
