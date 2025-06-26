@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { MapPin, Calendar, Search, Download, Wand2 } from 'lucide-react';
 import axios from 'axios';
@@ -7,6 +7,9 @@ import { Navigation, Pagination, A11y } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const EarthImagery = () => {
   const [earthData, setEarthData] = useState(null);
@@ -21,6 +24,9 @@ const EarthImagery = () => {
   const [enhancedImageUrl, setEnhancedImageUrl] = useState(null);
   const [enhancing, setEnhancing] = useState(false);
   const [enhanceError, setEnhanceError] = useState(null);
+  const [eonetData, setEonetData] = useState([]);
+  const [eonetLoading, setEonetLoading] = useState(true);
+  const [eonetError, setEonetError] = useState(null);
 
   const fetchEarthImagery = async () => {
     try {
@@ -74,6 +80,60 @@ const EarthImagery = () => {
     } finally {
       setEnhancing(false);
     }
+  };
+
+  useEffect(() => {
+    const fetchEonet = async () => {
+      setEonetLoading(true);
+      setEonetError(null);
+      try {
+        const res = await axios.get('https://eonet.gsfc.nasa.gov/api/v3/events?status=open');
+        setEonetData(res.data.events || []);
+      } catch (err) {
+        setEonetError('Failed to fetch EONET data.');
+      }
+      setEonetLoading(false);
+    };
+    fetchEonet();
+  }, []);
+
+  // Group events by region (use first category title as region proxy)
+  const regionCounts = {};
+  eonetData.forEach(event => {
+    const region = event.categories && event.categories[0] ? event.categories[0].title : 'Other';
+    regionCounts[region] = (regionCounts[region] || 0) + 1;
+  });
+  const regionLabels = Object.keys(regionCounts);
+  const regionValues = Object.values(regionCounts);
+
+  const eonetChartData = {
+    labels: regionLabels,
+    datasets: [
+      {
+        label: 'Active Natural Events',
+        data: regionValues,
+        fill: false,
+        borderColor: '#51cf66',
+        backgroundColor: 'rgba(81, 207, 102, 0.2)',
+        tension: 0.3,
+      },
+    ],
+  };
+  const eonetChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: 'Active Natural Events per Region (EONET)' },
+    },
+    scales: {
+      x: {
+        title: { display: true, text: 'Region', font: { size: 16, weight: 'bold' } },
+      },
+      y: {
+        title: { display: true, text: 'Event Count', font: { size: 16, weight: 'bold' } },
+        beginAtZero: true,
+      },
+    },
   };
 
   return (
@@ -229,6 +289,18 @@ const EarthImagery = () => {
           </Swiper>
         </div>
       )}
+
+      {/* EONET Natural Events Graph */}
+      <div className="card" style={{ margin: '32px auto', maxWidth: 900 }}>
+        <h3>Global Natural Events (EONET)</h3>
+        {eonetLoading ? (
+          <div className="loading">Loading EONET data...</div>
+        ) : eonetError ? (
+          <div className="error">{eonetError}</div>
+        ) : (
+          <Line data={eonetChartData} options={eonetChartOptions} />
+        )}
+      </div>
     </div>
   );
 };
