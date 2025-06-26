@@ -31,6 +31,18 @@ const EarthImagery = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContinent, setModalContinent] = useState('');
   const [modalEvents, setModalEvents] = useState([]);
+  const [formError, setFormError] = useState(null);
+
+  const quickSelects = [
+    { label: 'New York (2023-06-15)', lat: '40.7128', lon: '-74.0060', date: '2023-06-15' },
+    { label: 'London (2022-08-10)', lat: '51.5074', lon: '-0.1278', date: '2022-08-10' },
+    { label: 'Sydney (2021-12-01)', lat: '-33.8688', lon: '151.2093', date: '2021-12-01' },
+    { label: 'Cairo (2020-04-20)', lat: '30.0444', lon: '31.2357', date: '2020-04-20' },
+    { label: 'Tokyo (2019-09-05)', lat: '35.6895', lon: '139.6917', date: '2019-09-05' },
+    { label: 'Rio (2018-03-15)', lat: '-22.9068', lon: '-43.1729', date: '2018-03-15' },
+  ];
+
+  const isValidDateFormat = (dateStr) => /^\d{4}-\d{2}-\d{2}$/.test(dateStr);
 
   const fetchEarthImagery = async () => {
     try {
@@ -60,6 +72,11 @@ const EarthImagery = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setFormError(null);
+    if (!isValidDateFormat(filters.date)) {
+      setFormError('Please enter the date in YYYY-MM-DD format.');
+      return;
+    }
     fetchEarthImagery();
   };
 
@@ -199,6 +216,16 @@ const EarthImagery = () => {
         <p>View our beautiful planet from space with high-resolution satellite imagery</p>
       </div>
 
+      {/* Quick Select Section */}
+      <div className="quick-selects" style={{ margin: '16px 0', display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+        {quickSelects.map((q, i) => (
+          <button key={i} className="btn" style={{ padding: '6px 14px', fontSize: 14 }}
+            onClick={() => setFilters({ lat: q.lat, lon: q.lon, date: q.date, dim: '0.15' })}>
+            {q.label}
+          </button>
+        ))}
+      </div>
+
       <div className="filters-section">
         <div className="card">
           <h3>Location & Date</h3>
@@ -268,6 +295,7 @@ const EarthImagery = () => {
               {loading ? 'Searching...' : 'Get Earth Image'}
             </button>
           </form>
+          {formError && <div className="error" style={{ marginTop: 8 }}>{formError}</div>}
         </div>
       </div>
 
