@@ -72,8 +72,6 @@ const Home = () => {
 
   return (
     <>
-      <div className="home-bg"></div>
-      <div className="home-bg-overlay"></div>
       <div className="home">
         <div className="hero">
           <h1>Welcome to NASA Framework</h1>

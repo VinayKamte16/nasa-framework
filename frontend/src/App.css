@@ -96,33 +96,15 @@ main {
 
 /* Swiper carousel custom styles */
 .swiper {
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(30,32,44,0.95) 60%, rgba(102,126,234,0.15) 100%);
+  border-radius: 24px;
+  background: rgba(30, 32, 44, 0.85);
   box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
-  padding-bottom: 40px;
+  padding: 32px 0 48px 0;
+  margin: 0 auto;
+  max-width: 98vw;
   position: relative;
-  overflow: hidden;
-}
-
-/* Animated starfield background for carousel */
-.swiper::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 0;
-  background: url('https://www.transparenttextures.com/patterns/stardust.png');
-  opacity: 0.25;
-  animation: starfield-move 60s linear infinite;
-}
-
-@keyframes starfield-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 200px 400px; }
-}
-
-.swiper > * {
-  position: relative;
-  z-index: 1;
+  overflow: visible;
+  backdrop-filter: blur(8px);
 }
 
 .swiper-slide {
@@ -130,6 +112,7 @@ main {
   justify-content: center;
   align-items: stretch;
   transition: box-shadow 0.3s;
+  padding: 0 8px;
 }
 
 .swiper-slide-active {
@@ -139,14 +122,15 @@ main {
 .swiper-button-next,
 .swiper-button-prev {
   color: #fff;
-  background: rgba(102, 126, 234, 0.8);
+  background: rgba(102, 126, 234, 0.85);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   top: 50%;
   transform: translateY(-50%);
   box-shadow: 0 2px 8px rgba(102,126,234,0.15);
   transition: background 0.2s;
+  z-index: 10;
 }
 
 .swiper-button-next:hover,
@@ -257,9 +241,25 @@ body::before {
   width: 100vw;
   height: 100vh;
   z-index: -2;
-  background: url('https://images-assets.nasa.gov/image/PIA17011/PIA17011~orig.jpg') center center/cover no-repeat fixed;
   pointer-events: none;
+  background: transparent;
+  /* Starfield animation */
+  overflow: hidden;
 }
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
 body::after {
   content: '';
   position: fixed;
