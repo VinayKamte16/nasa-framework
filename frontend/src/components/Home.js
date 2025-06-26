@@ -74,8 +74,8 @@ const Home = () => {
     <>
       <div className="home">
         <div className="hero">
-          <h1>Welcome to NASA Framework</h1>
-          <p>Explore the cosmos through NASA's vast collection of space data and imagery</p>
+          <h1>Explore the Universe with NASA explorer</h1>
+          <p>Discover, visualize, and interact with real NASA data and imagery</p>
           <div className="mission-countdown-card">
             <h3>Next NASA Mission Launch</h3>
             <a href={NEXT_MISSION.link} target="_blank" rel="noopener noreferrer" className="mission-link">

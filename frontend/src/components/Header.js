@@ -23,7 +23,7 @@ const Header = () => {
         <div className="header-content">
           <Link to="/" className="logo">
             <Rocket size={32} />
-            <span>NASA Framework</span>
+            <span>NASA explorer</span>
           </Link>
           
           <nav className="nav">
