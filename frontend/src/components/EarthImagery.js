@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import { MapPin, Calendar, Search, Download, Wand2 } from 'lucide-react';
+import { MapPin, Calendar, Search, Download, Wand2, Info } from 'lucide-react';
 import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, A11y } from 'swiper/modules';
@@ -28,6 +28,9 @@ const EarthImagery = () => {
   const [eonetData, setEonetData] = useState([]);
   const [eonetLoading, setEonetLoading] = useState(true);
   const [eonetError, setEonetError] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContinent, setModalContinent] = useState('');
+  const [modalEvents, setModalEvents] = useState([]);
 
   const fetchEarthImagery = async () => {
     try {
@@ -127,6 +130,36 @@ const EarthImagery = () => {
   const continentLabels = Object.keys(continentCounts);
   const continentValues = Object.values(continentCounts);
 
+  // Map continent to event names
+  const continentEvents = {};
+  eonetData.forEach(event => {
+    const geom = event.geometry && event.geometry[0];
+    if (geom && geom.coordinates && geom.coordinates.length === 2) {
+      const [lon, lat] = geom.coordinates;
+      const continent = getContinent(lat, lon);
+      if (!continentEvents[continent]) continentEvents[continent] = [];
+      continentEvents[continent].push(event.title);
+    } else {
+      if (!continentEvents['Other']) continentEvents['Other'] = [];
+      continentEvents['Other'].push(event.title);
+    }
+  });
+
+  // Custom X-axis tick with info icon
+  const xAxisTicks = continentLabels.map(label => (
+    <span key={label} style={{ display: 'inline-flex', alignItems: 'center', marginRight: 8 }}>
+      {label}
+      <Info size={16} style={{ marginLeft: 4, cursor: 'pointer', color: '#51cf66' }}
+        title={`Show events for ${label}`}
+        onClick={() => {
+          setModalContinent(label);
+          setModalEvents(continentEvents[label] || []);
+          setModalOpen(true);
+        }}
+      />
+    </span>
+  ));
+
   const eonetChartData = {
     labels: continentLabels,
     datasets: [
@@ -149,6 +182,13 @@ const EarthImagery = () => {
     scales: {
       x: {
         title: { display: true, text: 'Continent', font: { size: 16, weight: 'bold' } },
+        ticks: {
+          callback: function(value, index) {
+            return xAxisTicks[index];
+          },
+          color: '#fff',
+          font: { size: 14 },
+        },
       },
       y: {
         title: { display: true, text: 'Event Count', font: { size: 16, weight: 'bold' } },
@@ -338,6 +378,23 @@ const EarthImagery = () => {
           <Line data={eonetChartData} options={eonetChartOptions} />
         )}
       </div>
+
+      {/* Modal for event names */}
+      {modalOpen && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => setModalOpen(false)}>
+          <div style={{ background: '#181c2a', padding: 24, borderRadius: 12, minWidth: 320, maxWidth: 480, maxHeight: '70vh', overflowY: 'auto', boxShadow: '0 4px 32px 0 rgba(0,0,0,0.18)' }} onClick={e => e.stopPropagation()}>
+            <h3 style={{ color: '#51cf66', marginBottom: 12 }}>Events in {modalContinent}</h3>
+            {modalEvents.length > 0 ? (
+              <ul style={{ color: '#fff', paddingLeft: 18 }}>
+                {modalEvents.map((name, i) => <li key={i}>{name}</li>)}
+              </ul>
+            ) : (
+              <div style={{ color: '#aaa' }}>No events found.</div>
+            )}
+            <button style={{ marginTop: 18, background: '#51cf66', color: '#181c2a', border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600, cursor: 'pointer' }} onClick={() => setModalOpen(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
