@@ -1,0 +1,86 @@
+.apod {
+  padding: 20px 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  color: #e0e0e0;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.date-selector {
+  margin-bottom: 40px;
+}
+
+.apod-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.apod-info {
+  margin-top: 24px;
+}
+
+.apod-info h2 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #e0e0e0;
+}
+
+.apod-info .date {
+  color: #667eea;
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.apod-info .explanation {
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.apod-info .copyright {
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.apod-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.apod-actions .btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .apod-info h2 {
+    font-size: 1.5rem;
+  }
+  
+  .apod-actions {
+    flex-direction: column;
+  }
+} 

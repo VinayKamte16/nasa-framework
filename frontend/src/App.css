@@ -1,0 +1,230 @@
+/* --- Original NASA Framework Theme --- */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 16px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  margin: 16px 0;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+  transform: scale(1.05);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-card h3 {
+  color: #667eea;
+  margin-bottom: 8px;
+  font-size: 24px;
+}
+
+.stat-card p {
+  color: #e0e0e0;
+  font-size: 14px;
+}
+
+/* Swiper carousel custom styles */
+.swiper {
+  border-radius: 16px;
+  background: rgba(30, 32, 44, 0.85);
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+  padding-bottom: 40px;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  transition: box-shadow 0.3s;
+}
+
+.swiper-slide-active {
+  box-shadow: 0 0 0 2px #667eea, 0 4px 32px 0 rgba(0,0,0,0.18);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff;
+  background: rgba(102, 126, 234, 0.8);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 2px 8px rgba(102,126,234,0.15);
+  transition: background 0.2s;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: #667eea;
+}
+
+.swiper-pagination-bullet {
+  background: #fff;
+  opacity: 0.5;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.swiper-pagination-bullet-active {
+  background: #667eea;
+  opacity: 1;
+}
+
+/* Custom carousel class overrides for each section */
+.epic-swiper .swiper-slide,
+.marsrover-swiper .swiper-slide,
+.neo-swiper .swiper-slide,
+.earth-swiper .swiper-slide,
+.home-swiper .swiper-slide {
+  padding: 8px 0;
+}
+
+.epic-swiper .swiper-button-next,
+.epic-swiper .swiper-button-prev,
+.marsrover-swiper .swiper-button-next,
+.marsrover-swiper .swiper-button-prev,
+.neo-swiper .swiper-button-next,
+.neo-swiper .swiper-button-prev,
+.earth-swiper .swiper-button-next,
+.earth-swiper .swiper-button-prev,
+.home-swiper .swiper-button-next,
+.home-swiper .swiper-button-prev {
+  background: rgba(102, 126, 234, 0.9);
+}
+
+.epic-swiper .swiper-pagination-bullet-active,
+.marsrover-swiper .swiper-pagination-bullet-active,
+.neo-swiper .swiper-pagination-bullet-active,
+.earth-swiper .swiper-pagination-bullet-active,
+.home-swiper .swiper-pagination-bullet-active {
+  background: #ffb347;
+}
+
+.loading, .error, .no-results {
+  text-align: center;
+  margin: 32px 0;
+  color: #ffb347;
+  font-size: 1.2rem;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background: #232526;
+}
+::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background: url('https://images-assets.nasa.gov/image/PIA17011/PIA17011~orig.jpg') center center/cover no-repeat fixed;
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: rgba(10, 16, 32, 0.7);
+  pointer-events: none;
+}
+
+select, select option, select optgroup, option {
+  background-color: #23243a !important;
+  color: #fff !important;
+} 

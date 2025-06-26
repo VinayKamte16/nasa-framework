@@ -1,0 +1,248 @@
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.home {
+  position: relative;
+  z-index: 1;
+  padding: 20px 0;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-stats .stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #667eea;
+  font-weight: 600;
+}
+
+.features {
+  margin-bottom: 60px;
+}
+
+.features h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #e0e0e0;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 32px;
+  text-decoration: none;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  color: white;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: #e0e0e0;
+}
+
+.feature-card p {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+.info-section {
+  margin-top: 60px;
+}
+
+.tech-stack {
+  margin-top: 24px;
+}
+
+.tech-stack h4 {
+  color: #667eea;
+  margin-bottom: 16px;
+}
+
+.tech-stack ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tech-stack li {
+  padding: 8px 0;
+  color: rgba(255, 255, 255, 0.8);
+  position: relative;
+  padding-left: 20px;
+}
+
+.tech-stack li::before {
+  content: '🚀';
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  .hero-stats {
+    gap: 20px;
+  }
+  
+  .features h2 {
+    font-size: 2rem;
+  }
+}
+
+.nasa-news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.nasa-news-list li {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.nasa-news-list li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.nasa-news-list a {
+  color: #667eea;
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.nasa-news-list a:hover {
+  color: #ffb347;
+  text-decoration: underline;
+}
+.nasa-news-list p {
+  color: rgba(255,255,255,0.85);
+  margin: 8px 0 0 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.mission-countdown-card {
+  background: rgba(102, 126, 234, 0.08);
+  border: 1.5px solid rgba(102, 126, 234, 0.18);
+  border-radius: 18px;
+  margin: 32px auto 0 auto;
+  max-width: 420px;
+  padding: 28px 24px;
+  text-align: center;
+  box-shadow: 0 4px 24px 0 rgba(102,126,234,0.10);
+}
+.mission-countdown-card h3 {
+  color: #667eea;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.mission-link {
+  color: #ffb347;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.mission-link:hover {
+  color: #667eea;
+  text-decoration: underline;
+}
+.mission-date {
+  color: #e0e0e0;
+  font-size: 1rem;
+  margin: 8px 0 18px 0;
+}
+.countdown-timer {
+  font-size: 1.5rem;
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  color: #fff;
+  background: rgba(102, 126, 234, 0.12);
+  border-radius: 10px;
+  padding: 10px 0;
+  margin-top: 8px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+@media (max-width: 768px) {
+  .mission-countdown-card {
+    padding: 16px 6px;
+    max-width: 98vw;
+  }
+  .countdown-timer {
+    font-size: 1.1rem;
+    padding: 6px 0;
+  }
+}
+
+.form-group select {
+  background: #23243a;
+  color: #fff;
+  z-index: 10;
+  position: relative;
+}
+.form-group select:focus {
+  outline: 2px solid #667eea;
+  z-index: 1001;
+} 
