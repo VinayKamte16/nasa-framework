@@ -34,7 +34,7 @@ const EarthImagery = () => {
         dim: filters.dim
       });
 
-      const response = await axios.get(`/api/earth-imagery?${params}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/earth-imagery?${params}`);
       setEarthData(response.data);
     } catch (err) {
       setError('Failed to fetch Earth imagery. Please check your coordinates and try again.');
@@ -67,7 +67,7 @@ const EarthImagery = () => {
     setEnhanceError(null);
     setEnhancedImageUrl(null);
     try {
-      const response = await axios.post('/api/enhance-image', { imageUrl: earthData.url });
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/enhance-image`, { imageUrl: earthData.url });
       setEnhancedImageUrl(response.data.enhancedUrl);
     } catch (err) {
       setEnhanceError('Failed to enhance image.');

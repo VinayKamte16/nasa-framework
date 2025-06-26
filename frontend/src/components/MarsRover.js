@@ -83,7 +83,7 @@ const MarsRover = () => {
         ...(filters.sol && { sol: filters.sol })
       });
 
-      const response = await axios.get(`/api/mars-rover?${params}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mars-rover?${params}`);
       setPhotos(response.data.photos || []);
     } catch (err) {
       setError('Failed to fetch Mars Rover photos. Please try again.');

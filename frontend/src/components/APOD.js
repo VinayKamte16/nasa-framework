@@ -14,7 +14,7 @@ const APOD = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`/api/apod?date=${date}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/apod?date=${date}`);
       setApodData(response.data);
     } catch (err) {
       setError('Failed to fetch APOD data. Please try again.');

@@ -27,7 +27,7 @@ const NEO = () => {
         end_date: filters.end_date
       });
 
-      const response = await axios.get(`/api/neo?${params}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/neo?${params}`);
       setNeoData(response.data);
     } catch (err) {
       setError('Failed to fetch NEO data. Please try again.');

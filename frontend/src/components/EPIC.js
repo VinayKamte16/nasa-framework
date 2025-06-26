@@ -18,7 +18,7 @@ const EPIC = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`/api/epic?date=${date}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/epic?date=${date}`);
       setEpicData(response.data || []);
     } catch (err) {
       setError('Failed to fetch EPIC data. Please try again.');
