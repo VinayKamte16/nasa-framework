@@ -44,6 +44,18 @@ const EarthImagery = () => {
 
   const isValidDateFormat = (dateStr) => /^\d{4}-\d{2}-\d{2}$/.test(dateStr);
 
+  const parseToISODate = (input) => {
+    // If already in YYYY-MM-DD
+    if (/^\d{4}-\d{2}-\d{2}$/.test(input)) return input;
+    // Try DD/MM/YYYY
+    const ddmmyyyy = input.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (ddmmyyyy) return `${ddmmyyyy[3]}-${ddmmyyyy[2]}-${ddmmyyyy[1]}`;
+    // Try MM/DD/YYYY
+    const mmddyyyy = input.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (mmddyyyy) return `${mmddyyyy[3]}-${mmddyyyy[1]}-${mmddyyyy[2]}`;
+    return null;
+  };
+
   const fetchEarthImagery = async () => {
     try {
       setLoading(true);
@@ -67,7 +79,22 @@ const EarthImagery = () => {
   };
 
   const handleFilterChange = (field, value) => {
+    if (field === 'date') {
+      let iso = value;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        iso = parseToISODate(value);
+        if (iso) {
+          setFilters(prev => ({ ...prev, [field]: iso }));
+          setFormError(null);
+          return;
+        } else {
+          setFormError('Please enter the date in YYYY-MM-DD format.');
+          return;
+        }
+      }
+    }
     setFilters(prev => ({ ...prev, [field]: value }));
+    setFormError(null);
   };
 
   const handleSubmit = (e) => {
