@@ -72,7 +72,7 @@ const APOD = () => {
         </div>
       </div>
 
-      {apodData && (
+      {apodData && apodData.date && !isNaN(new Date(apodData.date).getTime()) ? (
         <div className="apod-content">
           <div className="card">
             <div className="image-container">
@@ -89,16 +89,13 @@ const APOD = () => {
                 />
               )}
             </div>
-
             <div className="apod-info">
               <h2>{apodData.title}</h2>
               <p className="date">{format(new Date(apodData.date), 'MMMM d, yyyy')}</p>
               <p className="explanation">{apodData.explanation}</p>
-              
               {apodData.copyright && (
                 <p className="copyright">© {apodData.copyright}</p>
               )}
-
               <div className="apod-actions">
                 {apodData.media_type === 'image' && apodData.hdurl && (
                   <button onClick={handleDownload} className="btn">
@@ -106,7 +103,6 @@ const APOD = () => {
                     Download HD Image
                   </button>
                 )}
-                
                 {apodData.url && (
                   <a href={apodData.url} target="_blank" rel="noopener noreferrer" className="btn">
                     <ExternalLink size={16} />
@@ -117,6 +113,8 @@ const APOD = () => {
             </div>
           </div>
         </div>
+      ) : (
+        <div className="error">No valid APOD data available for this date.</div>
       )}
     </div>
   );
