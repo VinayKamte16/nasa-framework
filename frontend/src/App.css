@@ -99,20 +99,22 @@ main {
   border-radius: 24px;
   background: rgba(30, 32, 44, 0.85);
   box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
-  padding: 32px 0 48px 0;
+  padding: 32px 48px 48px 48px;
   margin: 0 auto;
   max-width: 98vw;
   position: relative;
   overflow: visible;
   backdrop-filter: blur(8px);
+  box-sizing: border-box;
 }
 
 .swiper-slide {
   display: flex;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
   transition: box-shadow 0.3s;
   padding: 0 8px;
+  box-sizing: border-box;
 }
 
 .swiper-slide-active {
@@ -243,6 +245,10 @@ main {
 }
 
 @media (max-width: 900px) {
+  .swiper {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
   .swiper-button-prev {
     left: 4px;
   }
