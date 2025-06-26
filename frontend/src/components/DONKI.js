@@ -53,6 +53,23 @@ const DONKI = () => {
       legend: { display: false },
       title: { display: true, text: 'CME Events (Last 30 Days)' },
     },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Date',
+          font: { size: 16, weight: 'bold' },
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'CME Event Count',
+          font: { size: 16, weight: 'bold' },
+        },
+        beginAtZero: true,
+      },
+    },
   };
 
   // AI Assistant (simple, compatible with rest of framework)
@@ -85,7 +102,7 @@ const DONKI = () => {
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
           <Bar data={chartData} options={chartOptions} />
           <div style={{ marginTop: 32 }}>
-            <Line data={chartData} options={{ ...chartOptions, title: { display: true, text: 'CME Events Trend' } }} />
+            <Line data={chartData} options={{ ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: 'CME Events Trend' } } }} />
           </div>
         </div>
       )}
