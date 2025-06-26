@@ -125,19 +125,19 @@ const EPIC = () => {
                     <div className="stats">
                       <div className="stat-card">
                         <h5>Latitude</h5>
-                        <p>{parseFloat(image.centroid_coordinates.lat).toFixed(2)}°</p>
+                        <p>{image.centroid_coordinates && image.centroid_coordinates.lat !== undefined ? parseFloat(image.centroid_coordinates.lat).toFixed(2) + '°' : 'N/A'}</p>
                       </div>
                       <div className="stat-card">
                         <h5>Longitude</h5>
-                        <p>{parseFloat(image.centroid_coordinates.lon).toFixed(2)}°</p>
+                        <p>{image.centroid_coordinates && image.centroid_coordinates.lon !== undefined ? parseFloat(image.centroid_coordinates.lon).toFixed(2) + '°' : 'N/A'}</p>
                       </div>
                       <div className="stat-card">
                         <h5>DSCOVR Distance</h5>
-                        <p>{parseFloat(image.dscovr_j2000_position.x).toFixed(0)} km</p>
+                        <p>{image.dscovr_j2000_position && image.dscovr_j2000_position.x !== undefined ? parseFloat(image.dscovr_j2000_position.x).toFixed(0) + ' km' : 'N/A'}</p>
                       </div>
                       <div className="stat-card">
                         <h5>Lunar Distance</h5>
-                        <p>{parseFloat(image.lunar_j2000_position.x).toFixed(0)} km</p>
+                        <p>{image.lunar_j2000_position && image.lunar_j2000_position.x !== undefined ? parseFloat(image.lunar_j2000_position.x).toFixed(0) + ' km' : 'N/A'}</p>
                       </div>
                     </div>
                     <p className="timestamp">
