@@ -9,6 +9,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import dayjs from 'dayjs';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const EarthImagery = () => {
@@ -155,6 +156,19 @@ const EarthImagery = () => {
       },
     },
   };
+
+  // After fetching eonetData
+  const eventDates = eonetData
+    .map(event => event.geometry && event.geometry[0] && event.geometry[0].date)
+    .filter(Boolean)
+    .map(date => new Date(date));
+  let dateRangeText = '';
+  if (eventDates.length > 0) {
+    const minDate = new Date(Math.min(...eventDates));
+    const maxDate = new Date(Math.max(...eventDates));
+    const format = d => dayjs(d).format('MMM D, YYYY');
+    dateRangeText = `Showing events from ${format(minDate)} to ${format(maxDate)}`;
+  }
 
   return (
     <div className="earth-imagery">
@@ -313,6 +327,9 @@ const EarthImagery = () => {
       {/* EONET Natural Events Graph */}
       <div className="card" style={{ margin: '32px auto', maxWidth: 900 }}>
         <h3>Global Natural Events (EONET)</h3>
+        {dateRangeText && (
+          <div style={{ fontSize: '1rem', color: '#aaa', marginBottom: 8, marginTop: 16, textAlign: 'center' }}>{dateRangeText}</div>
+        )}
         {eonetLoading ? (
           <div className="loading">Loading EONET data...</div>
         ) : eonetError ? (
