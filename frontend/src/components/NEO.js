@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { format } from 'date-fns';
+import { format, differenceInCalendarDays, parseISO } from 'date-fns';
 import { Calendar, Search, AlertTriangle, TrendingUp } from 'lucide-react';
 import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,6 +12,7 @@ const NEO = () => {
   const [neoData, setNeoData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [customError, setCustomError] = useState(null);
   const [filters, setFilters] = useState({
     start_date: format(new Date(), 'yyyy-MM-dd'),
     end_date: format(new Date(), 'yyyy-MM-dd')
@@ -45,8 +46,22 @@ const NEO = () => {
     setFilters(prev => ({ ...prev, [field]: value }));
   };
 
+  const isDateInLast7Days = (dateStr) => {
+    const today = new Date();
+    const date = parseISO(dateStr);
+    return differenceInCalendarDays(today, date) <= 6 && differenceInCalendarDays(today, date) >= 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setCustomError(null);
+    if (
+      !isDateInLast7Days(filters.start_date) ||
+      !isDateInLast7Days(filters.end_date)
+    ) {
+      setCustomError('NEO data is only available for the last 7 days. Please select a recent date range.');
+      return;
+    }
     fetchNEO();
   };
 
@@ -89,6 +104,9 @@ const NEO = () => {
       <div className="filters-section">
         <div className="card">
           <h3>Date Range</h3>
+          <div style={{ color: '#e0a800', marginBottom: 8, fontWeight: 500 }}>
+            Note: NEO data is only available for the last 7 days.
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="grid">
               <div className="form-group">
@@ -129,7 +147,13 @@ const NEO = () => {
         </div>
       </div>
 
-      {neoData && (
+      {customError && (
+        <div className="error" style={{ margin: '16px 0' }}>
+          {customError}
+        </div>
+      )}
+
+      {!customError && !loading && neoData && (
         <div className="neo-content">
           <div className="stats">
             <div className="stat-card">
