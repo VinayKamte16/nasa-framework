@@ -131,6 +131,15 @@ main {
   box-shadow: 0 2px 8px rgba(102,126,234,0.15);
   transition: background 0.2s;
   z-index: 10;
+  position: absolute;
+}
+
+.swiper-button-prev {
+  left: -28px;
+}
+
+.swiper-button-next {
+  right: -28px;
 }
 
 .swiper-button-next:hover,
@@ -230,6 +239,15 @@ main {
   }
   .swiper {
     padding-bottom: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .swiper-button-prev {
+    left: 4px;
+  }
+  .swiper-button-next {
+    right: 4px;
   }
 }
 
