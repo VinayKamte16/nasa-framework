@@ -201,6 +201,31 @@ main {
   }
 }
 
+@media (max-width: 480px) {
+  .container {
+    padding: 0 6px;
+    max-width: 100vw;
+  }
+  .card, .feature-card {
+    padding: 10px;
+    font-size: 0.95rem;
+    border-radius: 10px;
+  }
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .page-header h1 {
+    font-size: 1.3rem;
+  }
+  .apod-content, .epic-content, .earth-content, .neo-content {
+    padding: 0 2px;
+  }
+  .swiper {
+    padding-bottom: 20px;
+  }
+}
+
 body::before {
   content: '';
   position: fixed;
