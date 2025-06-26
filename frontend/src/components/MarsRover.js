@@ -223,7 +223,10 @@ const MarsRover = () => {
                   <SwiperSlide key={index}>
                     <div className="photo-card card">
                       <div className="image-container">
-                        <img src={photo.img_src} alt={`Mars photo ${index + 1}`} />
+                        <img src={photo.img_src} alt={`Mars Rover ${photo.rover.name}`} />
+                        <div style={{textAlign: 'center', marginTop: '8px', fontSize: '0.95em', color: '#aaa'}}>
+                          <span>Tip: On mobile, long-press the image to save it.</span>
+                        </div>
                       </div>
                       <div className="photo-info">
                         <h4>{photo.camera.full_name}</h4>

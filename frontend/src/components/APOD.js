@@ -77,7 +77,12 @@ const APOD = () => {
           <div className="card">
             <div className="image-container">
               {apodData.media_type === 'image' ? (
-                <img src={apodData.url} alt={apodData.title} />
+                <>
+                  <img src={apodData.url} alt={apodData.title} />
+                  <div style={{textAlign: 'center', marginTop: '8px', fontSize: '0.95em', color: '#aaa'}}>
+                    <span>Tip: On mobile, long-press the image to save it.</span>
+                  </div>
+                </>
               ) : (
                 <iframe
                   src={apodData.url}
@@ -97,12 +102,6 @@ const APOD = () => {
                 <p className="copyright">© {apodData.copyright}</p>
               )}
               <div className="apod-actions">
-                {apodData.media_type === 'image' && apodData.hdurl && (
-                  <button onClick={handleDownload} className="btn">
-                    <Download size={16} />
-                    Download HD Image
-                  </button>
-                )}
                 {apodData.url && (
                   <a href={apodData.url} target="_blank" rel="noopener noreferrer" className="btn">
                     <ExternalLink size={16} />

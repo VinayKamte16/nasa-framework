@@ -180,6 +180,9 @@ const EarthImagery = () => {
               <div className="card">
                 <div className="image-container">
                   <img src={earthData.url} alt="Earth satellite imagery" />
+                  <div style={{textAlign: 'center', marginTop: '8px', fontSize: '0.95em', color: '#aaa'}}>
+                    <span>Tip: On mobile, long-press the image to save it.</span>
+                  </div>
                 </div>
                 
                 <div className="earth-info">
