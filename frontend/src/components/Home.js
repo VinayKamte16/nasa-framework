@@ -7,7 +7,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './Home.css';
-import DebugInfo from './DebugInfo';
 
 const NEXT_MISSION = {
   name: 'Artemis II Moon Mission',
@@ -74,9 +73,6 @@ const Home = () => {
   return (
     <>
       <div className="home">
-        {/* Temporary debug component - remove after fixing deployment issues */}
-        <DebugInfo />
-        
         <div className="hero">
           <h1>Explore the Universe with NASA explorer</h1>
           <p>Discover, visualize, and interact with real NASA data and imagery</p>
