@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // NASA API Configuration
 const NASA_API_KEY = process.env.NASA_API_KEY;
+console.log('Using NASA_API_KEY:', NASA_API_KEY);
 const NASA_BASE_URL = 'https://api.nasa.gov';
 
 // Routes
