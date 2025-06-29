@@ -136,7 +136,7 @@ app.get('/api/epic', async (req, res) => {
 app.post('/api/assistant', async (req, res) => {
   const { message } = req.body;
   const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-  const endpoint = "https://openrouter.ai/api/v1/chat/completions";
+  const endpoint = 'https://openrouter.ai/api/v1/chat/completions';
 
   if (!message) {
     return res.status(400).json({ error: 'Message is required' });
@@ -147,14 +147,19 @@ app.post('/api/assistant', async (req, res) => {
       headers: {
         'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://nasa-framework.vercel.app', // Optional, for OpenRouter rankings
-        'X-Title': 'NASA Explorer' // Optional, for OpenRouter rankings
+        'HTTP-Referer': 'https://nasa-framework.vercel.app',
+        'X-Title': 'NASA Explorer'
       },
       body: JSON.stringify({
         model: "mistralai/mistral-small-3.2-24b-instruct:free",
         messages: [{ role: "user", content: message }]
       })
     });
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error('OpenRouter API bad response:', errText);
+      return res.status(response.status).json({ error: errText });
+    }
     const data = await response.json();
     const reply = data?.choices?.[0]?.message?.content || "No response";
     res.json({ reply });
@@ -206,6 +211,6 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 NASA Framework Server running on port ${PORT}`);
-  console.log(`📡 API available at http://localhost:${PORT}/api`);
+  console.log(` NASA Framework Server running on port ${PORT}`);
+  console.log(`API available at http://localhost:${PORT}/api`);
 }); 
