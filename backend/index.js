@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const axios = require('axios');
 const { spawn } = require('child_process');
 const path = require('path');
+const fetch = require('node-fetch');
 require('dotenv').config();
 
 const app = express();
@@ -131,30 +132,34 @@ app.get('/api/epic', async (req, res) => {
   }
 });
 
-// Natural Language Assistant (OpenAI GPT)
+// Natural Language Assistant (OpenRouter API)
 app.post('/api/assistant', async (req, res) => {
   const { message } = req.body;
-  const OPENAI_API_KEY = process.env.OPENAI_API_KEY || 'f4bde7d44cd64321b6ef558f1eb05ebb';
+  const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+  const endpoint = "https://openrouter.ai/api/v1/chat/completions";
+
   if (!message) {
     return res.status(400).json({ error: 'Message is required' });
   }
   try {
-    const response = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: message }],
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://nasa-framework.vercel.app', // Optional, for OpenRouter rankings
+        'X-Title': 'NASA Explorer' // Optional, for OpenRouter rankings
       },
-      {
-        headers: {
-          'Authorization': `Bearer ${OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    res.json({ reply: response.data.choices[0].message.content });
+      body: JSON.stringify({
+        model: "mistralai/mistral-small-3.2-24b-instruct:free",
+        messages: [{ role: "user", content: message }]
+      })
+    });
+    const data = await response.json();
+    const reply = data?.choices?.[0]?.message?.content || "No response";
+    res.json({ reply });
   } catch (error) {
-    console.error('Assistant API Error:', error.message);
+    console.error('OpenRouter API Error:', error.message);
     res.status(500).json({ error: 'Failed to get assistant response' });
   }
 });
