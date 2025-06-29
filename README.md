@@ -81,12 +81,15 @@ npm run dev
 2. Import the repo in [Vercel](https://vercel.com/).
 3. Set the project root to `frontend`.
 4. Set environment variable:  
-   `REACT_APP_API_URL=https://<your-backend-on-railway>.railway.app`
+   `REACT_APP_API_URL=https://<your-backend-on-render>.onrender.com`
 5. Deploy!
 
-### **Backend (Railway)**
-1. Import your repo in [Railway](https://railway.app/).
-2. Set the project root to `backend`.
+### **Backend (Render)**
+1. Import your repo in [Render](https://render.com/).
+2. Create a new **Web Service**:
+   - Root directory: `backend`
+   - Build command: `npm install`
+   - Start command: `npm start`
 3. Set environment variables:
    - `NASA_API_KEY=your_nasa_api_key_here`
    - `NODE_ENV=production`
@@ -103,9 +106,9 @@ PORT=5000
 NODE_ENV=production
 ```
 
-**Frontend (Vercel/Netlify):**
+**Frontend (Vercel):**
 ```
-REACT_APP_API_URL=https://<your-backend-on-railway>.railway.app
+REACT_APP_API_URL=https://<your-backend-on-render>.onrender.com
 ```
 
 ---
