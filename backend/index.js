@@ -162,7 +162,23 @@ app.post('/api/assistant', async (req, res) => {
     }
     const data = await response.json();
     const reply = data?.choices?.[0]?.message?.content || "No response";
-    res.json({ reply });
+    
+    // Return the JSON response in the requested format
+    const jsonResponse = {
+      "model": "mistralai/mistral-small-3.2-24b-instruct",
+      "messages": [
+        {
+          "role": "user",
+          "content": message
+        },
+        {
+          "role": "assistant",
+          "content": reply
+        }
+      ]
+    };
+    
+    res.json(jsonResponse);
   } catch (error) {
     console.error('OpenRouter API Error:', error.message);
     res.status(500).json({ error: 'Failed to get assistant response' });

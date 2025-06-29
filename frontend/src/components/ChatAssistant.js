@@ -23,7 +23,21 @@ const ChatAssistant = () => {
         body: JSON.stringify({ message: input })
       });
       const data = await res.json();
-      setMessages(prev => [...prev, { role: 'assistant', content: data.reply || data.error }]);
+      
+      // Handle the new JSON response format
+      if (data.messages && data.messages.length > 0) {
+        // Find the assistant's response (last message with role 'assistant')
+        const assistantMessage = data.messages.find(msg => msg.role === 'assistant');
+        if (assistantMessage) {
+          setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage.content }]);
+        } else {
+          setMessages(prev => [...prev, { role: 'assistant', content: 'No response received.' }]);
+        }
+      } else if (data.error) {
+        setMessages(prev => [...prev, { role: 'assistant', content: `Error: ${data.error}` }]);
+      } else {
+        setMessages(prev => [...prev, { role: 'assistant', content: 'Unexpected response format.' }]);
+      }
     } catch (err) {
       setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, there was an error.' }]);
     }
