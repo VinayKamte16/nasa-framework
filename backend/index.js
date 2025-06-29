@@ -146,9 +146,7 @@ app.post('/api/assistant', async (req, res) => {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://nasa-framework.vercel.app',
-        'X-Title': 'NASA Explorer'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         model: "mistralai/mistral-small-3.2-24b-instruct:free",
