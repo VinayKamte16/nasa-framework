@@ -14,7 +14,7 @@ console.log('CORS Origin:', process.env.FRONTEND_URL);
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: "https://nasa-framework.vercel.app",
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // NASA API Configuration
-const NASA_API_KEY = process.env.NASA_API_KEY;
+ const NASA_API_KEY = process.env.NASA_API_KEY;
 console.log('Using NASA_API_KEY:', NASA_API_KEY);
 const NASA_BASE_URL = 'https://api.nasa.gov';
 
@@ -45,6 +45,7 @@ app.get('/api/apod', async (req, res) => {
     });
 
     const response = await axios.get(`${NASA_BASE_URL}/planetary/apod?${params}`);
+    console.log('APOD Response:', response.data);
     res.json(response.data);
   } catch (error) {
     console.error('APOD API Error:', error.message);
